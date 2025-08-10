@@ -2,7 +2,9 @@
   "name": "@haptap/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "backend:serve": "nx serve backend"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^11.0.0",
@@ -34,6 +36,7 @@
     "jest": "^30.0.2",
     "jest-environment-node": "^30.0.2",
     "jest-util": "^30.0.2",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "21.3.11",
     "prettier": "^2.6.2",
     "ts-jest": "^29.4.0",
