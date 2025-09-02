@@ -15,7 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@api/contracts": ["libs/contracts/src/index.ts"]
+      "@api-contracts": ["libs/api-contracts/src/index.ts"],
+
+      "@be/auth/*": ["src/app/auth/*"],
+      "@be/products/*": ["src/app/products/*"],
+      "@be/comments/*": ["src/app/comments/*"],
+      "@be/models/*": ["src/app/models/*"],
+      "@be/services/*": ["src/app/services/*"],
+      "@be/config/*": ["src/app/config/*"],
+      "@be/utils/*": ["src/app/utils/*"],
+      "@be/*": ["src/app/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
