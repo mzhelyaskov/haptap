@@ -1,2 +1,3 @@
+[ ] Configure strict null check for be and fe
 [ ] Prepare the utility library to work with the strict null check typings
-[ ]
+[ ] Rename backend haptap application to something that will indicate it's a backend

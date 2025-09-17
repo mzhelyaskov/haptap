@@ -2,3 +2,4 @@
     contraversions like UserEntity vs User. UserRequest vs User and so on. Do we need such suffixes?
 [ ] Improve approach for ConfigModule. I don't think to keep all config in the env properties. Probably would be better
     to keep config in the TypeScript files.
+[ ] Improve registration of entities in TypeOrmModule entities configuration

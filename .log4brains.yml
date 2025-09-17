@@ -1,8 +1,0 @@
-project:
-  name: HapTap
-  tz: Europe/Warsaw
-  adrFolder: ./docs/adr
-  packages:
-    - name: api-contracts
-      path: ./libs/contracts
-      adrFolder: ./docs/adr

@@ -14,7 +14,10 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          allow: [
+            '^@@be-haptap\\/.*',
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'
+          ],
           depConstraints: [
             {
               sourceTag: '*',
@@ -37,6 +40,11 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    rules: {
+      '@typescript-eslint/no-empty-interface': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+    },
   },
 ];
