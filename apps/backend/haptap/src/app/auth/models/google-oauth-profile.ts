@@ -1,0 +1,35 @@
+import { AuthProviderName } from '@@be-haptap/app/auth/models/auth-provider-name';
+import { GoogleOAuthUserProfile } from '@@be-haptap/app/auth/models/google-oauth-user-profile';
+import { UserData } from '@@be-haptap/app/auth/models/user-data';
+import { OAuthProfile } from '@@be-haptap/app/auth/models/oauth-profile';
+
+export class GoogleOAuthProfile extends OAuthProfile {
+  public readonly provider: AuthProviderName = AuthProviderName.GOOGLE;
+
+  constructor(private readonly profile: GoogleOAuthUserProfile) {
+    super();
+  }
+
+  get email(): string {
+    return this.profile?.emails?.[0]?.value || '';
+  }
+
+  get fullName(): string {
+    const givenName: string = this.profile?.name?.givenName || '';
+    const familyName: string = this.profile?.name?.familyName || '';
+    return `${ givenName } ${ familyName }`.trim();
+  }
+
+  get avatarUrl(): string | undefined {
+    return this.profile.photos?.[0]?.value;
+  }
+
+  toUserData(): UserData {
+    return {
+      email: this.email,
+      firstName: this.fullName,
+      providerName: this.provider,
+      avatarUrl: this.avatarUrl
+    };
+  }
+}

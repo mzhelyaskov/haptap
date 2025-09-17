@@ -1,0 +1,38 @@
+import { User } from '@@be-haptap/app/auth/entities/user.entity';
+import { GoogleOAuthProfile } from '@@be-haptap/app/auth/models/google-oauth-profile';
+import { GoogleOAuthUserProfile } from '@@be-haptap/app/auth/models/google-oauth-user-profile';
+import { OAuthProfile } from '@@be-haptap/app/auth/models/oauth-profile';
+import { AuthService } from '@@be-haptap/app/auth/services/auth.service';
+import { ENV_CONFIG, EnvConfig } from '@@be-haptap/environments';
+import { Inject, Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { WithoutCallback } from '@nestjs/passport/dist/interfaces';
+import { AllConstructorParameters } from '@nestjs/passport/dist/passport/passport.strategy';
+import { Strategy, VerifyCallback } from 'passport-google-oauth2';
+
+@Injectable()
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  constructor(
+    private authService: AuthService,
+    @Inject(ENV_CONFIG) private env: EnvConfig
+  ) {
+    super({
+      clientID: env.google.clientId,
+      clientSecret: env.google.clientSecret,
+      callbackURL: env.google.callbackUrl,
+      failureRedirectURL: env.oAuthFailureRedirectUrl,
+      scope: ['profile', 'email'],
+    } as WithoutCallback<AllConstructorParameters<unknown>>);
+  }
+
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: GoogleOAuthUserProfile,
+    done: VerifyCallback
+  ): Promise<void> {
+    const oAuthProfile: OAuthProfile = new GoogleOAuthProfile(profile);
+    const user: User = await this.authService.findOrCreateUserByOAuthProfile$(oAuthProfile);
+    done(null, user);
+  }
+}
