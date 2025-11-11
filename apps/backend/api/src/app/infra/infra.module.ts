@@ -1,0 +1,8 @@
+import { RedirectService } from '@@be-api/app/infra/services/redirect.service';
+import { Module } from '@nestjs/common';
+
+@Module({
+  providers: [RedirectService],
+  exports: [RedirectService],
+})
+export class InfraModule {}

@@ -50,7 +50,7 @@ Define all aliases in the root tsconfig.base.json (or tsconfig.base.ts). One ali
       "@@fe-ui/button": ["libs/frontend/ui/button/src/index.ts"],
       "@@fe-haptap/web/*": ["apps/frontend/haptap/web/src/*"],
       "@@fe-haptap/mobile/*": ["apps/frontend/haptap/mobile/src/*"],
-      "@@be-haptap/*": ["apps/backend/haptap/src/*"]
+      "@@be-api/*": ["apps/backend/haptap/src/*"]
     }
   }
 }

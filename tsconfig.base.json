@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@@api-contracts": ["libs/api-contracts/src/index.ts"],
-      "@@be-haptap/*": ["apps/backend/haptap/src/*"]
+      "@@be-api/*": ["apps/backend/api/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
