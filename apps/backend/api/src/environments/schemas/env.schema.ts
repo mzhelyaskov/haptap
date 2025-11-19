@@ -1,19 +1,31 @@
-import { ObjectSchema } from 'joi';
-import * as Joi from 'joi';
-import { EnvType } from '../models';
+import { z } from 'zod';
+import { EnvType } from '@@be-api/environments/models';
 
-export const envSchema: ObjectSchema = Joi.object({
-  NODE_ENV: Joi.string().valid(EnvType.DEVELOPMENT, EnvType.PRODUCTION).required(),
+export const EnvSchema: z.AnyZodObject = z.object({
+  environment: z.nativeEnum(EnvType),
+  host: z.string().min(1),
+  port: z.number().int().positive(),
+  frontendUrl: z.string().url(),
+  oAuthFailureRedirectUrl: z.string().url(),
 
-  GOOGLE_CALLBACK_URL: Joi.string().uri().required(),
-  GOOGLE_CLIENT_ID: Joi.string().required(),
-  GOOGLE_CLIENT_SECRET: Joi.string().required(),
+  google: z.object({
+    clientId: z.string().min(1),
+    clientSecret: z.string().min(1),
+    callbackUrl: z.string().url(),
+  }),
 
-  DB_HOST: Joi.string().required(),
-  DB_PORT: Joi.number().default(5433),
-  DB_USER: Joi.string().required(),
-  DB_PASS: Joi.string().required(),
-  DB_NAME: Joi.string().required(),
+  database: z.object({
+    type: z.literal('postgres'),
+    host: z.string().min(1),
+    port: z.number().int().positive(),
+    username: z.string().min(1),
+    password: z.string().min(1),
+    name: z.string().min(1),
+    synchronize: z.boolean().optional(),
+  }),
 
-  JWT_SECRET: Joi.string().required()
+  jwt: z.object({
+    secret: z.string().min(1),
+    expiresIn: z.string().optional(),
+  })
 });

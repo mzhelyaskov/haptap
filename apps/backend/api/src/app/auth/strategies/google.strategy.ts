@@ -3,18 +3,19 @@ import { GoogleOAuthProfile } from '@@be-api/app/auth/models/google-oauth-profil
 import { GoogleOAuthUserProfile } from '@@be-api/app/auth/models/google-oauth-user-profile';
 import { OAuthProfile } from '@@be-api/app/auth/models/oauth-profile';
 import { AuthService } from '@@be-api/app/auth/services/auth.service';
-import { ENV_CONFIG, EnvConfig } from '@@be-api/environments';
 import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { WithoutCallback } from '@nestjs/passport/dist/interfaces';
 import { AllConstructorParameters } from '@nestjs/passport/dist/passport/passport.strategy';
 import { Strategy, VerifyCallback } from 'passport-google-oauth2';
+import { Environment } from '@@be-api/environments/models';
+import { ENV } from '@@be-api/environments/tokens';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     private authService: AuthService,
-    @Inject(ENV_CONFIG) private env: EnvConfig
+    @Inject(ENV) private env: Environment
   ) {
     super({
       clientID: env.google.clientId,

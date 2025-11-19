@@ -10,6 +10,7 @@
       "env": {
         "NODE_OPTIONS": "--inspect=9229"
       },
+      "envFile": "${workspaceFolder}/apps/backend/api/src/environments/vars/.env.development",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "skipFiles": ["<node_internals>/**"],

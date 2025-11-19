@@ -1,4 +1,4 @@
 import { InjectionToken } from '@nestjs/common';
-import { EnvConfig } from './models';
+import { Environment } from './models';
 
-export const ENV_CONFIG: InjectionToken<EnvConfig> = 'ENV_CONFIG';
+export const ENV: InjectionToken<Environment> = 'ENV';

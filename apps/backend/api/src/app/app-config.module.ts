@@ -1,27 +1,19 @@
-import {
-  ENV_CONFIG,
-  envSchema,
-  EnvType,
-  loadEnvConfig,
-} from '@@be-api/environments';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import * as path from 'node:path';
+import { ENV } from '@@be-api/environments/tokens';
+import { environment } from '@@be-api/environments/env';
+import { EnvVarsSchema } from '@@be-api/environments/schemas';
 
 @Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [
-        path.resolve(__dirname, `environments/.env.${process.env.NODE_ENV}`),
-        path.resolve(__dirname, `environments/.env.${EnvType.DEVELOPMENT}`)
-      ],
-      load: [() => loadEnvConfig()],
-      validationSchema: envSchema,
+      load: [environment],
+      validationSchema: EnvVarsSchema
     }),
   ],
-  providers: [{ provide: ENV_CONFIG, useFactory: () => loadEnvConfig() }],
-  exports: [ENV_CONFIG, ConfigModule],
+  providers: [{ provide: ENV, useFactory: environment }],
+  exports: [ENV, ConfigModule],
 })
 export class AppConfigModule {}

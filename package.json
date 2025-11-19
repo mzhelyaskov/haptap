@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:be:api": "nx serve be-api",
+    "serve:be:api": "env-cmd -f apps/backend/api/src/environments/vars/.env.development nx serve be-api",
     "build:be:api": "nx build be-api",
     "serve:fe:web": "nx serve fe-web",
     "build:fe:web": "nx build fe-web",
@@ -42,6 +42,7 @@
     "rxjs": "^7.8.0",
     "typeorm": "^0.3.27",
     "typeorm-naming-strategies": "^4.1.0",
+    "zod": "^3.25.76",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -80,6 +81,7 @@
     "@types/passport-local": "^1.0.38",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^20.3.0",
+    "env-cmd": "^11.0.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",

@@ -9,10 +9,12 @@ export default [
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    ignores: ['**/webpack.config.js'],
     rules: {
       '@nx/enforce-module-boundaries': [
         'error',
         {
+          allowCircularSelfDependency: true,
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
@@ -23,6 +25,21 @@ export default [
           ],
         },
       ],
+      '@typescript-eslint/typedef': [
+        'error',
+        {
+          variableDeclaration: true,
+          variableDeclarationIgnoreFunction: true,
+          propertyDeclaration: true,
+          memberVariableDeclaration: true,
+          parameter: true,
+          arrowParameter: false,
+          objectDestructuring: true,
+          arrayDestructuring: true,
+        },
+      ],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-inferrable-types': 'off'
     },
   },
   {

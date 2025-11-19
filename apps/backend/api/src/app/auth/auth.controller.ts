@@ -6,9 +6,10 @@ import { UserResponseDto } from '@@be-api/app/auth/models/dto/user.dto';
 import { HttpAuthRequest, HttpAuthResponse } from '@@be-api/app/auth/models/http-auth-request';
 import { JwtAccessToken } from '@@be-api/app/auth/models/jwt-access-token';
 import { AuthService } from '@@be-api/app/auth/services/auth.service';
-import { ENV_CONFIG, EnvConfig } from '@@be-api/environments';
 import { Controller, Get, Inject, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { CookieOptions } from 'express-serve-static-core';
+import { ENV } from '@@be-api/environments/tokens';
+import { Environment } from '@@be-api/environments/models';
 
 @Controller('auth')
 export class AuthController {
@@ -19,7 +20,7 @@ export class AuthController {
     sameSite: 'strict'
   };
 
-  constructor(private authService: AuthService, @Inject(ENV_CONFIG) private env: EnvConfig) {}
+  constructor(private authService: AuthService, @Inject(ENV) private env: Environment) {}
 
   @Post('login')
   @UseGuards(LocalAuthGuard)

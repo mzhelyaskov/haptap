@@ -1,18 +1,19 @@
-import { ENV_CONFIG, EnvConfig } from '@@be-api/environments';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { globSync } from 'glob';
 import * as path from 'path';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { EntitySchema } from 'typeorm';
+import { ENV } from '@@be-api/environments/tokens';
+import { Environment } from '@@be-api/environments/models';
 
 const entities: EntitySchema[] = getEntities();
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      inject: [ENV_CONFIG],
-      useFactory: (env: EnvConfig) => {
+      inject: [ENV],
+      useFactory: (env: Environment) => {
         return {
           type: env.database.type,
           host: env.database.host,
@@ -22,11 +23,11 @@ const entities: EntitySchema[] = getEntities();
           database: env.database.name,
           synchronize: env.database.synchronize,
           namingStrategy: new SnakeNamingStrategy(),
-          entities: []
+          entities
         };
       },
     }),
-    TypeOrmModule.forFeature(entities),
+    TypeOrmModule.forFeature(entities)
   ],
   exports: [TypeOrmModule],
 })
